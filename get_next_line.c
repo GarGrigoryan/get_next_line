@@ -6,14 +6,13 @@
 /*   By: garik <garik@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 16:58:05 by gargrigo          #+#    #+#             */
-/*   Updated: 2026/02/11 00:52:11 by garik            ###   ########.fr       */
+/*   Updated: 2026/02/11 00:55:06 by garik            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <unistd.h>
 #include <fcntl.h>
-#include <stdio.h>
 
 static t_list	*get_last_node(t_list *list)
 {
