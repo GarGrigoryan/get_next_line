@@ -6,7 +6,7 @@
 /*   By: gargrigo <gargrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 15:46:54 by gargrigo          #+#    #+#             */
-/*   Updated: 2026/02/13 15:49:31 by gargrigo         ###   ########.fr       */
+/*   Updated: 2026/02/13 15:54:22 by gargrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &next_line, 0) < 0 || fd > 4095)
 		return (NULL);
-	create_list(list, fd);
+	create_list(&list[fd], fd);
 	if (!list[fd])
 		return (NULL);
 	next_line = get_line(list[fd]);
