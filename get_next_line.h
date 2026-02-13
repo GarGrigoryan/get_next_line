@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garik <garik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gargrigo <gargrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/10 17:02:34 by gargrigo          #+#    #+#             */
-/*   Updated: 2026/02/11 00:49:41 by garik            ###   ########.fr       */
+/*   Created: 2026/02/13 15:40:54 by gargrigo          #+#    #+#             */
+/*   Updated: 2026/02/13 15:43:45 by gargrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
 # endif
-
-#include <stdlib.h>
+# include <stdlib.h>
 
 typedef struct s_list
 {

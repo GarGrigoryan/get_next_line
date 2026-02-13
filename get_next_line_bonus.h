@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garik <garik@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gargrigo <gargrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 17:02:34 by gargrigo          #+#    #+#             */
-/*   Updated: 2026/02/11 01:23:29 by garik            ###   ########.fr       */
+/*   Updated: 2026/02/13 15:44:12 by gargrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
 # endif
-
-#include <stdlib.h>
+# include <stdlib.h>
 
 typedef struct s_list
 {
