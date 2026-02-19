@@ -6,7 +6,7 @@
 /*   By: gargrigo <gargrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 15:47:13 by gargrigo          #+#    #+#             */
-/*   Updated: 2026/02/13 15:47:14 by gargrigo         ###   ########.fr       */
+/*   Updated: 2026/02/19 18:32:43 by gargrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,29 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-static t_list	*get_last_node(t_list *list)
+// static t_list	*get_last_node(t_list *list)
+// {
+// 	if (list == NULL)
+// 		return (NULL);
+// 	while (list->next)
+// 		list = list->next;
+// 	return (list);
+// }
+
+void	free_list(t_list **list)
 {
+	t_list	*temp;
+
 	if (list == NULL)
-		return (NULL);
-	while (list->next)
-		list = list->next;
-	return (list);
+		return ;
+	while (*list)
+	{
+		temp = (*list)->next;
+		free((*list)->str);
+		free(*list);
+		*list = temp;
+	}
+	*list = NULL;
 }
 
 static void	clear_list(t_list **list)
@@ -37,7 +53,9 @@ static void	clear_list(t_list **list)
 	clean_node = (t_list *)malloc(sizeof(t_list));
 	if (buf == NULL || clean_node == NULL)
 		return ;
-	last_node = get_last_node(*list);
+	last_node = *list;
+	while (last_node->next)
+		last_node = last_node->next;
 	while (last_node->str[i] != '\0' && last_node->str[i] != '\n')
 		++i;
 	while (last_node->str[i] != '\0' && last_node->str[++i])
@@ -73,9 +91,12 @@ static void	create_list(t_list **list, int fd)
 	{
 		buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 		if (!buf)
+		{
+			free_list(list);
 			return ;
+		}
 		char_read = read(fd, buf, BUFFER_SIZE);
-		if (!char_read)
+		if (char_read <= 0)
 		{
 			free(buf);
 			return ;
@@ -90,7 +111,7 @@ char	*get_next_line(int fd)
 	static t_list	*list;
 	char			*next_line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &next_line, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	create_list(&list, fd);
 	if (!list)
@@ -100,7 +121,8 @@ char	*get_next_line(int fd)
 	return (next_line);
 }
 
-/*
+#include <stdio.h>
+
 int main(void)
 {
 	int fd = open("text.txt", O_RDONLY);
@@ -114,4 +136,3 @@ int main(void)
 	printf("%s", line);
 	free(line);
 }
-*/
