@@ -6,22 +6,29 @@
 /*   By: gargrigo <gargrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 15:46:54 by gargrigo          #+#    #+#             */
-/*   Updated: 2026/02/13 15:54:22 by gargrigo         ###   ########.fr       */
+/*   Updated: 2026/02/19 18:54:16 by gargrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <unistd.h>
 #include <fcntl.h>
-#include <limits.h>
+#include <stdio.h>
 
-static t_list	*get_last_node(t_list *list)
+void	free_list(t_list **list)
 {
+	t_list	*temp;
+
 	if (list == NULL)
-		return (NULL);
-	while (list->next)
-		list = list->next;
-	return (list);
+		return ;
+	while (*list)
+	{
+		temp = (*list)->next;
+		free((*list)->str);
+		free(*list);
+		*list = temp;
+	}
+	*list = NULL;
 }
 
 static void	clear_list(t_list **list)
@@ -38,7 +45,9 @@ static void	clear_list(t_list **list)
 	clean_node = (t_list *)malloc(sizeof(t_list));
 	if (buf == NULL || clean_node == NULL)
 		return ;
-	last_node = get_last_node(*list);
+	last_node = *list;
+	while (last_node->next)
+		last_node = last_node->next;
 	while (last_node->str[i] != '\0' && last_node->str[i] != '\n')
 		++i;
 	while (last_node->str[i] != '\0' && last_node->str[++i])
@@ -74,9 +83,12 @@ static void	create_list(t_list **list, int fd)
 	{
 		buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 		if (!buf)
+		{
+			free_list(list);
 			return ;
+		}
 		char_read = read(fd, buf, BUFFER_SIZE);
-		if (!char_read)
+		if (char_read <= 0)
 		{
 			free(buf);
 			return ;
@@ -88,10 +100,10 @@ static void	create_list(t_list **list, int fd)
 
 char	*get_next_line(int fd)
 {
-	static t_list	*list[4096];
+	static t_list	*list[FOPEN_MAX - 1];
 	char			*next_line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &next_line, 0) < 0 || fd > 4095)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > FOPEN_MAX - 1)
 		return (NULL);
 	create_list(&list[fd], fd);
 	if (!list[fd])
@@ -101,18 +113,38 @@ char	*get_next_line(int fd)
 	return (next_line);
 }
 
-/*
-int main(void)
-{
-	int fd = open("text.txt", O_RDONLY);
-    char *line;
+// int main(void)
+// {
+// 	int fd = open("text.txt", O_RDONLY);
+// 	// int fd2 = open("text2.txt", O_RDONLY);
+// 	// int fd3 = open("text3.txt", O_RDONLY);
+//     char *line;
 
-	line = get_next_line(fd);
-	printf("%s", line);
-	free(line);
-
-	line = get_next_line(fd);
-	printf("%s", line);
-	free(line);
-}
-*/
+// 	line = get_next_line(fd);
+// 	printf("%s", line);
+// 	free(line);
+// 	line = get_next_line(fd);
+// 	printf("%s", line);
+// 	free(line);
+// 	line = get_next_line(fd);
+// 	printf("%s", line);
+// 	free(line);
+// 	line = get_next_line(fd);
+// 	printf("%s", line);
+// 	free(line);
+// 	line = get_next_line(fd);
+// 	printf("%s", line);
+// 	free(line);
+// 	line = get_next_line(fd);
+// 	printf("%s", line);
+// 	free(line);
+// 	line = get_next_line(fd);
+// 	printf("%s", line);
+// 	free(line);
+// 	line = get_next_line(fd);
+// 	printf("%s", line);
+// 	free(line);
+// 	line = get_next_line(fd);
+// 	printf("%s", line);
+// 	free(line);
+// }

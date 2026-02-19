@@ -6,7 +6,7 @@
 /*   By: gargrigo <gargrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 17:02:34 by gargrigo          #+#    #+#             */
-/*   Updated: 2026/02/13 15:44:12 by gargrigo         ###   ########.fr       */
+/*   Updated: 2026/02/19 18:44:20 by gargrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+void	free_list(t_list **list);
 char	*get_next_line(int fd);
 void	ft_free(t_list **list, t_list *clean_node, char *buf);
 int		len_to_nl(t_list *list);

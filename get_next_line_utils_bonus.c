@@ -6,27 +6,16 @@
 /*   By: gargrigo <gargrigo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 15:47:00 by gargrigo          #+#    #+#             */
-/*   Updated: 2026/02/13 15:47:02 by gargrigo         ###   ########.fr       */
+/*   Updated: 2026/02/19 18:47:18 by gargrigo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <stddef.h>
 
 void	ft_free(t_list **list, t_list *clean_node, char *buf)
 {
-	t_list	*temp;
-
-	if (list == NULL)
-		return ;
-	while (*list)
-	{
-		temp = (*list)->next;
-		free((*list)->str);
-		free(*list);
-		*list = temp;
-	}
-	*list = NULL;
+	free_list(list);
 	if (clean_node->str[0])
 		*list = clean_node;
 	else
