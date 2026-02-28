@@ -8,7 +8,7 @@ The **get_next_line** project is a fundamental challenge in the 42 common core. 
 
 This project introduces the concept of **static variables** in C programming and requires careful management of dynamic memory allocation. The function must handle repeated calls to read a text file one line at a time until the end of the file, regardless of the buffer size or the file's length.
 
-### Features
+### Features ooo
 - Reads from files, standard input, or even network sockets.
 - Supports any `BUFFER_SIZE` defined at compile time.
 - Efficiently manages memory to prevent leaks (using `valgrind` or `leaks` for verification).
